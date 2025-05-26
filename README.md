@@ -2,6 +2,11 @@
 
 a browser extension and server application that tracks and displays the currently playing music from youtube music.
 
+## objective
+
+this project allows users to display album artwork from currently playing youtube music tracks on external display devices such as nzxt aio liquid coolers, samsung smart refrigerators, amazon echo show, and other smart displays. 
+by tracking what's playing on youtube music in real-time, users can enjoy visual representation of their music on secondary screens throughout their environment, enhancing the music listening experience with synchronized visual elements.
+
 ## overview
 
 youtube music tracker consists of:

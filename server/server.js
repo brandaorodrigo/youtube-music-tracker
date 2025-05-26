@@ -18,26 +18,32 @@ app.use((req, res, next) => {
 app.get('/select', (req, res) => {
   fs.readFile('server.json', 'utf8', (err, data) => {
     if (err) {
-      console.error('Error reading file:', err);
-      return res.status(400).json({ error: 'Failed to read data' });
+      return res.status(400).json({ error: 'failed to read data' });
     }
     try {
       const jsonData = JSON.parse(data);
       res.json(jsonData);
     } catch (error) {
-      console.error('Error parsing JSON:', error);
-      res.status(500).json({ error: 'Invalid JSON format' });
+      res.status(400).json({ error: 'invalid json format' });
     }
   });
 });
 
 app.post('/update', (req, res) => {
-  fs.writeFile('server.json', JSON.stringify(req.body), (err) => {
-    if (err) {
-      console.error('Error writing to file:', err);
-      return res.status(500).json({ error: 'Failed to update data' });
+  const filePath = 'server.json';
+  if (!fs.existsSync(filePath)) {
+    try {
+      fs.writeFileSync(filePath, JSON.stringify({}));
+      console.log('Created new server.json file');
+    } catch (err) {
+      return res.status(400).json({ error: 'failed to create data file' });
     }
-    res.status(200).json({ message: 'Data updated successfully' });
+  }
+  fs.writeFile(filePath, JSON.stringify(req.body), (err) => {
+    if (err) {
+      return res.status(400).json({ error: 'failed to update data' });
+    }
+    res.status(200).json({ message: 'updated' });
   });
 });
 

@@ -34,7 +34,6 @@ app.post('/update', (req, res) => {
   if (!fs.existsSync(filePath)) {
     try {
       fs.writeFileSync(filePath, JSON.stringify({}));
-      console.log('Created new server.json file');
     } catch (err) {
       return res.status(400).json({ error: 'failed to create data file' });
     }

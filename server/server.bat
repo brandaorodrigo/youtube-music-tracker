@@ -1,6 +1,6 @@
 @echo off
-cd /d "%~dp0"
-echo Youtube Music Tracker
+color 0C
+echo youtube music tracker
 echo.
 node server.js
 pause

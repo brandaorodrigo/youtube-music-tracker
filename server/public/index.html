@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Music Tracker</title>
+  <style>
+    body {
+      align-items: center;
+      background-color: #222222;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      justify-content: center;
+      margin: 0;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    img {
+      animation: albumZoom 30s ease-in-out infinite;
+      height: 100vh;
+      position: absolute;
+      width: 100vw;
+      z-index: 1;
+    }
+
+    @keyframes albumZoom {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <img id="art" src="" alt="art">
+  <script src="index.js"></script>
+</body>
+
+</html>

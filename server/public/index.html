@@ -3,43 +3,51 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>YouTube Music Tracker</title>
+  <title>youtube music tracker</title>
   <style>
     body {
       align-items: center;
-      background-color: #222222;
-      color: #ffffff;
+      background-color: #000;
       display: flex;
       flex-direction: column;
-      height: 100vh;
       justify-content: center;
-      margin: 0;
       overflow: hidden;
-      padding: 0;
+      height: 100vh;
     }
 
-    img {
-      animation: albumZoom 30s ease-in-out infinite;
-      height: 100vh;
+    #background {
       position: absolute;
       width: 100vw;
-      z-index: 1;
+      height: 100vh;
+      filter: blur(10px);
+      object-fit: cover;
+      z-index: 0;
+      animation: slowZoom 20s infinite alternate ease-in-out;
     }
 
-    @keyframes albumZoom {
-      0%,
-      100% {
+    @keyframes slowZoom {
+      0% {
         transform: scale(1);
       }
 
-      50% {
-        transform: scale(1.2);
+      100% {
+        transform: scale(2);
       }
+    }
+
+    #art {
+      height: auto;
+      position: absolute;
+      width: 55%;
+      border-radius: 20px;
+      z-index: 1;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
     }
   </style>
 </head>
 
 <body>
+  <img id="background" src="" alt="background">
   <img id="art" src="" alt="art">
   <script src="index.js"></script>
 </body>

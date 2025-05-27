@@ -8,6 +8,7 @@ const update = () => {
                 return;
             }
             last = data.music;
+            document.getElementById('background').src = data.base64;
             document.getElementById('art').src = data.base64;
         });
 };

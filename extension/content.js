@@ -1,19 +1,13 @@
-let last = null;
+const server = 'https://youtube-music-tracker.onrender.com';
 
-const base64FromUrl = async (url) => {
-    try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(String(reader.result));
-            reader.onerror = reject;
-            reader.readAsDataURL(blob);
-        });
-    } catch (error) {
-        throw new Error(`${error}`);
-    }
-};
+let last = null;
+let username = null;
+
+chrome.storage.sync.get(['ytUsername'], function (result) {
+  if (result.ytUsername) {
+    username = result.ytUsername;
+  }
+});
 
 const run = () => {
   const music = document.querySelector('.title.ytmusic-player-bar')?.innerText;
@@ -32,12 +26,27 @@ const run = () => {
 
   last = music;
 
-  console.log('%c youtube music tracker', 'color: green; font-weight: bold', { music, artist, album, art });
+  console.log('%c youtube music tracker', 'color: green; font-weight: bold', { username, music, artist, album, art });
+
+  const base64FromUrl = async (url) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(String(reader.result));
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  };
 
   base64FromUrl(art)
     .then(base64 => {
-      const body = { music, artist, album, art, base64 };
-      return fetch(`http://localhost:4444/update`, {
+      const body = { username, music, artist, album, art, base64 };
+      return fetch(server + '/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

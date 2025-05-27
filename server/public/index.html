@@ -3,26 +3,31 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>youtube music tracker</title>
+  <title>{username}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <style>
     body {
       align-items: center;
       background-color: #000;
       display: flex;
       flex-direction: column;
+      height: 100vh;
       justify-content: center;
       overflow: hidden;
-      height: 100vh;
     }
 
     #background {
+      animation: slowZoom 20s infinite alternate ease-in-out;
+      filter: blur(10px);
+      height: 100vh;
+      object-fit: cover;
       position: absolute;
       width: 100vw;
-      height: 100vh;
-      filter: blur(10px);
-      object-fit: cover;
       z-index: 0;
-      animation: slowZoom 20s infinite alternate ease-in-out;
     }
 
     @keyframes slowZoom {
@@ -36,12 +41,13 @@
     }
 
     #art {
+      border-radius: 20px;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
       height: auto;
+      max-width: 600px;
       position: absolute;
       width: 55%;
-      border-radius: 20px;
       z-index: 1;
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
     }
   </style>
 </head>
@@ -49,7 +55,26 @@
 <body>
   <img id="background" src="" alt="background">
   <img id="art" src="" alt="art">
-  <script src="index.js"></script>
+  <script>
+    let last = null;
+
+    const update = () => {
+      fetch('/select/{username}')
+        .then(res => res.json())
+        .then(data => {
+          if (last === data.music) {
+            return;
+          }
+          last = data.music;
+          document.getElementById('background').src = data.base64;
+          document.getElementById('art').src = data.base64;
+        });
+    };
+
+    update();
+
+    setInterval(update, 3000);
+  </script>
 </body>
 
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>YouTube Music Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Readex Pro', Courier, monospace;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        body {
+            width: 300px;
+            padding: 20px;
+        }
+
+        input {
+            padding: 0 10px;
+            border-radius: 0;
+            width: calc(100% - 25px);
+            border: 3px solid #111;
+            height: 40px;
+            margin: 0;
+            display: block;
+        }
+
+        button {
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            text-align: left;
+            width: 100%;
+            margin: 20px 0 0 0;
+            height: 45px;
+            padding: 0 0 0 13px;
+            background-color: #111;
+            color: white;
+            border: none;
+        }
+
+        #url {
+            margin-top: 20px;
+            width: calc(100% - 20px);
+            display: block;
+            background: #eee;
+            padding: 10px;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="overflow: auto;">
+        <input type="text" id="username" placeholder="enter your youtube username">
+        <button id="save">click here to save</button>
+    </div>
+    <a id="url" target="_blank" style="display:none">click here to open your music tracker</a>
+    <script src="popup.js"></script>
+</body>
+
+</html>

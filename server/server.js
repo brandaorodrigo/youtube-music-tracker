@@ -15,8 +15,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/select', (req, res) => {
-  fs.readFile('server.json', 'utf8', (err, data) => {
+app.get('/select/:username', (req, res) => {
+  if (!req.params.username) {
+    return res.status(400).json({ error: 'username parameter is required' });
+  }
+  fs.readFile('database/' + req.params.username + '.json', 'utf8', (err, data) => {
     if (err) {
       return res.status(400).json({ error: 'failed to read data' });
     }
@@ -30,7 +33,10 @@ app.get('/select', (req, res) => {
 });
 
 app.post('/update', (req, res) => {
-  const filePath = 'server.json';
+  if (!req.body.username) {
+    return res.status(400).json({ error: 'username required' });
+  }
+  const filePath = 'database/' + req.body.username + '.json';
   if (!fs.existsSync(filePath)) {
     try {
       fs.writeFileSync(filePath, JSON.stringify({}));
@@ -43,6 +49,16 @@ app.post('/update', (req, res) => {
       return res.status(400).json({ error: 'failed to update data' });
     }
     res.status(200).json({ message: 'updated' });
+  });
+});
+
+app.get('/:username', (req, res) => {
+  fs.readFile(path.join(__dirname, 'public', 'index.html'), 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).send('error loading page');
+    }
+    const updatedHtml = data.replaceAll(/{username}/g, req.params.username);
+    res.send(updatedHtml);
   });
 });
 

@@ -4,8 +4,7 @@
   "version": "1.0",
   "description": "Tracks currently playing songs on YouTube Music",
   "permissions": [
-    "storage",
-    "activeTab"
+    "storage"
   ],
   "action": {
     "default_popup": "popup.html",

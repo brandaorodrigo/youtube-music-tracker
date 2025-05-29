@@ -2,10 +2,10 @@
   "name": "youtube-music-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "server/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server/server.js",
-    "build": "pkg server/server.js --targets node18-win-x64 --output server/server.exe"
+    "start": "node server.js",
+    "build": "pkg server.js --targets node18-win-x64 --output server.exe"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +14,14 @@
   "dependencies": {
     "express": "^5.1.0",
     "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "assets": [
+      "server.js",
+      "public/**/*"
+    ],
+    "scripts": [
+      "server.js"
+    ]
   }
 }

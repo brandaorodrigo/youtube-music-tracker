@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "pkg server.js --targets node18-win-x64 --output server.exe"
+    "build": "pkg launcher.js --targets node18-win-x64 --output server.exe"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
       "public/**/*"
     ],
     "scripts": [
+      "launcher.js",
       "server.js"
     ]
   }

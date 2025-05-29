@@ -5,8 +5,7 @@ const app = express();
 
 const PORT = process.env.PORT || 4444;
 
-const isPackaged = typeof process.pkg !== 'undefined';
-const ___dirname = isPackaged ? path.dirname(process.execPath) : __dirname;
+const ___dirname = typeof process.pkg !== 'undefined' ? path.dirname(process.execPath) : __dirname;
 
 app.use(express.static(path.join(___dirname, 'public')));
 app.use(express.json({ limit: '50mb' }));

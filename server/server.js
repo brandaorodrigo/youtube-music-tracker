@@ -5,7 +5,10 @@ const app = express();
 
 const PORT = process.env.PORT || 4444;
 
-app.use(express.static(path.join(__dirname, 'public')));
+const isPackaged = typeof process.pkg !== 'undefined';
+const ___dirname = isPackaged ? path.dirname(process.execPath) : __dirname;
+
+app.use(express.static(path.join(___dirname, 'public')));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
@@ -46,7 +49,7 @@ app.post('/update', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(___dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {

@@ -2,15 +2,17 @@
   "name": "youtube-music-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server/server.js",
+    "build": "pkg server/server.js --targets node18-win-x64 --output server/server.exe"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "pkg": "^5.8.1"
   }
 }

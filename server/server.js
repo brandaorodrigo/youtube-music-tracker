@@ -15,11 +15,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/select/:username', (req, res) => {
-  if (!req.params.username) {
-    return res.status(400).json({ error: 'username parameter is required' });
-  }
-  fs.readFile('database/' + req.params.username + '.json', 'utf8', (err, data) => {
+app.get('/select', (req, res) => {
+  fs.readFile('server.json', 'utf8', (err, data) => {
     if (err) {
       return res.status(400).json({ error: 'failed to read data' });
     }
@@ -33,18 +30,14 @@ app.get('/select/:username', (req, res) => {
 });
 
 app.post('/update', (req, res) => {
-  if (!req.body.username) {
-    return res.status(400).json({ error: 'username required' });
-  }
-  const filePath = 'database/' + req.body.username + '.json';
-  if (!fs.existsSync(filePath)) {
+  if (!fs.existsSync('server.json')) {
     try {
-      fs.writeFileSync(filePath, JSON.stringify({}));
+      fs.writeFileSync('server.json', JSON.stringify({}));
     } catch (err) {
       return res.status(400).json({ error: 'failed to create data file' });
     }
   }
-  fs.writeFile(filePath, JSON.stringify(req.body), (err) => {
+  fs.writeFile('server.json', JSON.stringify(req.body), (err) => {
     if (err) {
       return res.status(400).json({ error: 'failed to update data' });
     }
@@ -52,14 +45,8 @@ app.post('/update', (req, res) => {
   });
 });
 
-app.get('/:username', (req, res) => {
-  fs.readFile(path.join(__dirname, 'public', 'index.html'), 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).send('error loading page');
-    }
-    const updatedHtml = data.replaceAll(/{username}/g, req.params.username);
-    res.send(updatedHtml);
-  });
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {

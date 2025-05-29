@@ -1,13 +1,4 @@
-const server = 'https://youtube-music-tracker.onrender.com';
-
 let last = null;
-let username = null;
-
-chrome.storage.sync.get(['ytUsername'], function (result) {
-  if (result.ytUsername) {
-    username = result.ytUsername;
-  }
-});
 
 const run = () => {
   const music = document.querySelector('.title.ytmusic-player-bar')?.innerText;
@@ -26,7 +17,7 @@ const run = () => {
 
   last = music;
 
-  console.log('%c youtube music tracker', 'color: green; font-weight: bold', { username, music, artist, album, art });
+  console.log('%c youtube music tracker', 'color: green; font-weight: bold', { music, artist, album, art });
 
   const base64FromUrl = async (url) => {
     try {
@@ -45,8 +36,8 @@ const run = () => {
 
   base64FromUrl(art)
     .then(base64 => {
-      const body = { username, music, artist, album, art, base64 };
-      return fetch(server + '/update', {
+      const body = { music, artist, album, art, base64 };
+      return fetch('http://localhost:4444/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

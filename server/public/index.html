@@ -59,7 +59,7 @@
     let last = null;
 
     const update = () => {
-      fetch('/select/{username}')
+      fetch('/select')
         .then(res => res.json())
         .then(data => {
           if (last === data.music) {
